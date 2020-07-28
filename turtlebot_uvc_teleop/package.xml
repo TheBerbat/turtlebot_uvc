@@ -1,0 +1,17 @@
+<package format="2">
+  <name>turtlebot_uvc_teleop</name>
+  <version>0.0.1</version>
+  <description>
+  Example package
+  </description>
+  <maintainer email="rafael.martin3@alu.uclm.es">Rafael Martin</maintainer>
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+</package>
