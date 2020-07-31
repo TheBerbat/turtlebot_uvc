@@ -1,8 +1,4 @@
-<launch>
-    <arg name="base"/>
-    <arg name="stacks"/>
-    <arg name="3d_sensor"/>
-    
+<launch>    
     <arg name="urdf_file" default="$(find xacro)/xacro '$(find turtlebot_uvc_description)/robot/turtlebot_uvc.urdf.xacro'"/>
     <param name="robot_description" command="$(arg urdf_file)"/>
 </launch>

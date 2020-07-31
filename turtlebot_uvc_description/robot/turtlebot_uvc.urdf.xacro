@@ -1,15 +1,29 @@
 <?xml version="1.0"?>
-<!--
-    - Base      : kobuki
-    - Stacks    : hexagons_uvc
-    - 3d Sensor : astra
--->    
-<robot name="turtlebot" xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:include filename="$(find turtlebot_description)/urdf/turtlebot_common_library.urdf.xacro" />
+<robot name="turtlebot_uvc" xmlns:xacro="http://ros.org/wiki/xacro">
+  <!--
+    Añadimos propiedades de los materiales de la librería original de turtlebot2.
+    La posición de la camara también está definida aquí. Todo en xacro.
+    Se ha copiado y modificado muy poco respecto a la original (modificar pos de la cam).
+  -->
+  <xacro:include filename="$(find turtlebot_uvc_description)/urdf/turtlebot_common_library.urdf.xacro" />
+
+  <!--
+    Añadimos la descripción de kobuki_base de la librería original de kobuki. Se usará mas adelante
+    para montar los niveles, etc...
+  -->
   <xacro:include filename="$(find kobuki_description)/urdf/kobuki.urdf.xacro" />
+
+  <!--
+    Añadimos el urdf que vamos a modificar. Se parte de "$(find turtlebot_description)/urdf/stacks/hexagons.urdf.xacro"
+    y se le agregan las modificaciones necesarias.
+  -->
   <xacro:include filename="$(find turtlebot_uvc_description)/urdf/stacks/hexagons_uvc.urdf.xacro"/>
-  <xacro:include filename="$(find turtlebot_description)/urdf/sensors/astra.urdf.xacro"/>
+
+  <!--
+
+  -->
+  <xacro:include filename="$(find turtlebot_uvc_description)/urdf/sensors/astra.urdf.xacro"/>
   
   <xacro:kobuki/>
   <xacro:stack_hexagons parent="base_link"/>
