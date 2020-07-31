@@ -1,74 +1,40 @@
 <?xml version="1.0"?>
-<robot name="sensor_astra" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="sensor_rplidar" xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:include filename="$(find turtlebot_uvc_description)/urdf/turtlebot_gazebo.urdf.xacro"/>
   <xacro:include filename="$(find turtlebot_uvc_description)/urdf/turtlebot_properties.urdf.xacro"/>
 
   <!-- Xacro properties -->
-  <xacro:property name="astra_cam_py" value="-0.0125"/>
-  <xacro:property name="astra_depth_rel_rgb_py" value="0.0250" />
-  <xacro:property name="astra_cam_rel_rgb_py"   value="-0.0125" />
-  <xacro:property name="astra_dae_display_scale"   value="1" />
+  <xacro:property name="lidar_px"       value="0"/>
+  <xacro:property name="lidar_py"       value="0" />
+  <xacro:property name="lidar_pz"       value="0.16" />
+  <xacro:property name="lidar_angulo"   value="0" />
   <!-- Parameterised in part by the values in turtlebot_properties.urdf.xacro -->
-  <xacro:macro name="sensor_astra" params="parent">
-    <joint name="camera_rgb_joint" type="fixed">
-      <origin xyz="${cam_px} ${astra_cam_py} ${cam_pz}"
-              rpy="0 0 0"/>
+  <xacro:macro name="sensor_rplidar" params="parent">
+
+    <joint name="rplidar_joint" type="fixed">
+      <origin xyz="${lidar_px} ${lidar_py} ${lidar_pz}"
+              rpy="0 0 ${lidar_angulo}"/>
       <parent link="${parent}"/>
-      <child link="camera_rgb_frame" />
+      <child link="rplidar_frame" />
     </joint>
-    <link name="camera_rgb_frame"/>
-
-    <joint name="camera_rgb_optical_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
-      <parent link="camera_rgb_frame" />
-      <child link="camera_rgb_optical_frame" />
-    </joint>
-    <link name="camera_rgb_optical_frame"/>
-
-    <joint name="camera_joint" type="fixed">
-      <origin xyz="0 ${astra_cam_rel_rgb_py} 0"
-              rpy="0 0 0"/>
-      <parent link="camera_rgb_frame"/>
-      <child link="camera_link"/>
-    </joint>
-    <link name="camera_link">
+    <link name="rplidar_frame">
       <visual>
-        <origin xyz="-0.04 0.02 -0.01" rpy="${M_PI/2} 0 ${M_PI/2}"/>
         <geometry>
-          <mesh filename="package://turtlebot_description/meshes/sensors/astra.dae" scale="${astra_dae_display_scale} ${astra_dae_display_scale} ${astra_dae_display_scale}"/>
+          <box size="0.05 0.05 0.05"/>
         </geometry>
+        <material name="Red"/>
       </visual>
-      <collision>
-        <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
-        <geometry>
-        <box size="0.0400 0.1650 0.0300"/>
-      </geometry>
-      </collision>
       <inertial>
-        <mass value="0.564" />
-        <origin xyz="0 0 0" />
-        <inertia ixx="0.003881243" ixy="0.0" ixz="0.0"
-                 iyy="0.000498940" iyz="0.0"
-                 izz="0.003879257" />
+        <mass value="0.1"/>
+        <origin x="0 0 0"/>
+        <inertia ixx="0.01" ixy="0.0" ixz="0.0"
+          iyy="0.01" iyz="0.0"
+          izz="0.01"/>
       </inertial>
     </link>
 
-    <joint name="camera_depth_joint" type="fixed">
-      <origin xyz="0 ${astra_depth_rel_rgb_py} 0" rpy="0 0 0" />
-      <parent link="camera_rgb_frame" />
-      <child link="camera_depth_frame" />
-    </joint>
-    <link name="camera_depth_frame"/>
-
-    <joint name="camera_depth_optical_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
-      <parent link="camera_depth_frame" />
-      <child link="camera_depth_optical_frame" />
-    </joint>
-    <link name="camera_depth_optical_frame"/>
-
-    <!-- RGBD sensor for simulation, same as Kinect -->
-    <xacro:turtlebot_sim_3dsensor/>
+    <!-- RPLIDAR for simulation -->
+    <xacro:rplidar_sim/>
 
   </xacro:macro>
 </robot>
