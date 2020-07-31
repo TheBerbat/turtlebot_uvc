@@ -22,16 +22,8 @@
   > roslaunch turtlebot_rviz_launchers view_model.launch
  -->
 
-<launch>
-  <arg name="base"       value="kobuki"/>  <!-- create, rhoomba -->
-  <arg name="stacks"     value="hexagons"/>  <!-- circles, hexagons -->
-  <arg name="3d_sensor"  value="kinect"/>  <!-- kinect, asus_xtion_pro -->
-  
-  <include file="$(find turtlebot_uvc_bringup)/launch/includes/robot.launch.xml">
-    <arg name="base" value="$(arg base)" />
-    <arg name="stacks" value="$(arg stacks)" />
-    <arg name="3d_sensor" value="$(arg 3d_sensor)" />
-  </include>
+<launch>  
+  <include file="$(find turtlebot_uvc_bringup)/launch/includes/robot.launch.xml"/>
   
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
     <param name="use_gui" value="true"/>
