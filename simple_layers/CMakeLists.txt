@@ -10,6 +10,7 @@ project(simple_layers)
 find_package(catkin REQUIRED COMPONENTS
   costmap_2d
   dynamic_reconfigure
+  roscpp
 )
 
 ## System dependencies are found with CMake's conventions
@@ -104,7 +105,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES simple_layers
-#  CATKIN_DEPENDS costmap_2d dynamic_reconfigure
+#  CATKIN_DEPENDS costmap_2d dynamic_reconfigure roscpp
 #  DEPENDS system_lib
 )
 
